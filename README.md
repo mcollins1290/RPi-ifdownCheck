@@ -8,6 +8,6 @@ Python script can be enabled by creating a file called '40-RPi-ifdownCheck' (wit
 
 if $if_down; then
         # Path to Launcher BASH script for Python script
-        /root/Git/RPi-ifdownCheck/launcher.sh
+        /root/Git/RPi-ifdownCheck/launcher.sh &
 fi
 ```
