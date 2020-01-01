@@ -31,7 +31,7 @@ def getSettings():
 			sys.exit(1)
 
 	if section == 'Settings':
-		for option in [ 'ifaceToMonitor', 'SleepDuration' ]:
+		for option in [ 'Enabled', 'ifaceToMonitor', 'SleepDuration' ]:
 			if not config.has_option(section, option):
 				print("ERROR: Missing Settings option: " + option +". Please check " + settings_filename)
 				sys.exit(1)
@@ -39,6 +39,7 @@ def getSettings():
 	# Settings file sections and options valid. Now retrieve/parse values and store in global Settings dict
 	try:
 		SETTINGS = {
+			'ENABLED':config.getboolean('Settings', 'Enabled'),
 			'IFACE':config.get('Settings', 'ifaceToMonitor'),
 			'SLEEP_DURATION':config.getint('Settings', 'SleepDuration')}
 
@@ -57,6 +58,10 @@ def validateSettings():
 	global SLEEP_DURATION_MINIMUM
 	global IFACE_STATUS_FILE_PATH
 
+	# Check Enabled Setting is set to True, if not output info message and exit
+	if not(SETTINGS['ENABLED']):
+		print("INFO: Enabled Setting is not set to 'True'. Exiting...")
+		sys.exit(0)
 	# Check Iface Status File exists, if not report error and exit
 	IFACE_STATUS_FILE_PATH = '/sys/class/net/' + SETTINGS['IFACE'] + '/operstate'
 	if not(os.path.exists(IFACE_STATUS_FILE_PATH)):
