@@ -1,3 +1,11 @@
 #!/bin/bash
 cd "$(dirname "$0")";
-./RPi-ifdownCheck.py > ./Log/log 2>&1
+
+CURRLOG=./Log/current-log
+PREVLOG=./Log/previous-log
+
+if [ -f "$CURRLOG" ]; then
+	mv -f "$CURRLOG" "$PREVLOG"
+fi
+
+./RPi-ifdownCheck.py > "$CURRLOG" 2>&1
