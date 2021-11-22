@@ -95,7 +95,7 @@ def shutdownSystem():
 	# Final check of Iface status prior to system shutdown
 	if isIfaceDown():
 		print(datetime.now().strftime("%m-%d-%Y %H:%M:%S") + " : 2nd Check Completed. Shutting down system now...")
-		os.system("shutdown now -h")
+		os.system("shutdown -h now")
 		sys.exit(0)
 
 def main():
